@@ -14,9 +14,17 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <cucumber.reporting>5.0.2</cucumber.reporting>
+    <cucumber.reporting.plugin>5.0.0</cucumber.reporting.plugin>
   </properties>
 
   <dependencies>
+    <!--REPORTING-->
+    <dependency>
+      <groupId>net.masterthought</groupId>
+      <artifactId>cucumber-reporting</artifactId>
+      <version>${cucumber.reporting}</version>
+    </dependency>
     <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
@@ -55,17 +63,47 @@
   </dependencies>
 
   <build>
-    <pluginManagement>
       <plugins>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
           <version>3.8.1</version>
           <configuration>
-            <!-- put your configurations here -->
+            <source>1.8</source>
+            <target>1.8</target>
+
           </configuration>
         </plugin>
-      </plugins>
-    </pluginManagement>
+        <!--REPORTING-->
+        <plugin>
+          <groupId>net.masterthought</groupId>
+          <artifactId>maven-cucumber-reporting</artifactId>
+          <version>${cucumber.reporting.plugin}</version>
+          <configuration>
+            <projectName>qacToyotaAutomation</projectName>
+            <outputDirectory>${project.build.directory}</outputDirectory>
+            <inputDirectory>${project.build.directory}/cucumber_report/</inputDirectory>
+            <jsonFiles>
+              <param>**/*.json</param>
+            </jsonFiles>
+          </configuration>
+          <executions>
+            <execution>
+              <id>execution</id>
+              <phase>install</phase>
+              <goals>
+                <goal>generate</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>3.0.0-M4</version>
+          </plugin>
+        </plugins>
+
   </build>
 </project>
