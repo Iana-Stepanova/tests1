@@ -24,9 +24,7 @@ public class MyStepdefs implements En {
             System.setProperty("webdriver.chrome.driver", "C:/WORK/chromedriver/chromedriver.exe");
         });
 
-        Given("^Open your browser and navigate to http://localhost:8090$", () -> {
-            open("http://admin:admin@localhost:8090/");
-        });
+
         When("^I find \"Customer Info\" button of second row payment$", () -> {
             button = $(By.xpath("(//span[contains(text(),'Customer Info')])[2]/parent::button")).waitUntil(Condition.enabled,5000);
         });
@@ -48,5 +46,6 @@ public class MyStepdefs implements En {
         Then("^I don't see \"Customer Info\" section on the top of the page$", () -> {
             $(By.xpath("//mat-card-title[contains(text(),'Customer Info')]")).waitUntil(Condition.disappear, 2000);
         });
+
     }
 }

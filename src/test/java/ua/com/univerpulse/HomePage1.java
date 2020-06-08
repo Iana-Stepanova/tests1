@@ -83,5 +83,15 @@ public class HomePage1 {
         $(By.xpath("//span[text()='Create Payment']/parent::button")).waitUntil(Condition.enabled, 2000).click();
         sleep(5000);
     }
+
+    public void checkLastRowNegative() {
+        SelenideElement lastString = $(By.xpath("//tbody/tr[last()]"));
+        lastString.$(By.xpath("./td[text()='"+this.paymentChannel+"']")).shouldNotBe(Condition.exist);
+        lastString.$(By.xpath("./td[text()='"+this.paymentAmount+"']")).shouldNotBe(Condition.exist);
+       }
+
+    public void clickPaymentButton() {
+        $(By.xpath("(//span[contains(text(),'Payment Info')])[last()]/parent::a")).waitUntil(Condition.enabled,5000).click();
+    }
 }
 
