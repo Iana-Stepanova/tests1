@@ -40,4 +40,5 @@ Feature: Web-scenario1
     And I enter new paymentChannel = a random string
     And I choose first day of current month (from date picker control) as payment date
     Then I click “Update” button
+    And I navigate to the last page of payments table
     And I verify that payment was successfully updated

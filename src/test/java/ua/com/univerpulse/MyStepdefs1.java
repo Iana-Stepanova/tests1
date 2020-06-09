@@ -85,7 +85,10 @@ public class MyStepdefs1 implements En {
         Then("^I click “Update” button$", () -> {
             homePage2.clickUpdate();
         });
+
+
         And("^I verify that payment was successfully updated$", () -> {
+            homePage2.checkLastRow();
 
         });
     }

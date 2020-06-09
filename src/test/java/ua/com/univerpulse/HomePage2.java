@@ -35,7 +35,7 @@ public class HomePage2 {
 
     private double paymentAmount = Math.random() * 100;
     private String paymentChannel = UUID.randomUUID().toString().replace("-", "").substring(0, 10);
-
+    private String inputPaymentDatePickerText;
 
     public void verifyPaymentInformationIsPopulated() {
         sleep(5000);
@@ -55,22 +55,37 @@ public class HomePage2 {
     }
 
     public void enterPaymentAmount() {
+        $(inputPaymentAmount).clear();
         $(inputPaymentAmount).sendKeys("" + paymentAmount);
     }
 
     public void enterPaymentChannel() {
+        $(inputPaymentChannel).clear();
         $(inputPaymentChannel).sendKeys(paymentChannel);
 
     }
 
-
     public void chooseFirstDay() {
-        
-
+        $(By.xpath(("//div[@class='mat-button-ripple mat-ripple mat-button-ripple-round']/parent::button"))).click();
+        sleep(5000);
+        $(By.xpath(("//div[text()='1']"))).click();
+        inputPaymentDatePickerText=$(inputPaymentDatePicker).getText();
     }
 
     public void clickUpdate() {
-        $(buttonUpdate).click();
-    }
-}
 
+        $(buttonUpdate).click();
+        sleep(5000);
+    }
+
+    public void checkLastRow() {
+        SelenideElement lastString = $(By.xpath("//tbody/tr[last()]"));
+        SelenideElement paymentChannel = lastString.$(By.xpath("./td[text()='" + this.paymentChannel + "']"));
+        SelenideElement paymentAmount = lastString.$(By.xpath("./td[text()='" + this.paymentAmount + "']"));
+        SelenideElement paymentDate = lastString.$(By.xpath("./td[text()='" + this.inputPaymentDatePickerText + "']"));
+        assertTrue(paymentChannel.isDisplayed(), "Not visible 1");
+        assertTrue(paymentAmount.isDisplayed(), "Not visible 2");
+        assertTrue(paymentDate.isDisplayed(), "Not visible 3");
+    }
+
+}
