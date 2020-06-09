@@ -6,6 +6,9 @@ import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.UUID;
 
 import static com.codeborne.selenide.Selenide.*;
@@ -35,7 +38,7 @@ public class HomePage2 {
 
     private double paymentAmount = Math.random() * 100;
     private String paymentChannel = UUID.randomUUID().toString().replace("-", "").substring(0, 10);
-    private String inputPaymentDatePickerText;
+    private LocalDate inputPaymentDatePickerText;
 
     public void verifyPaymentInformationIsPopulated() {
         sleep(5000);
@@ -47,21 +50,21 @@ public class HomePage2 {
 
     public void verifyFieldsAreEdiatable() {
         sleep(5000);
-        $(inputPaymentId).shouldNotBe(Condition.enabled);
-        $(inputPaymentAmount).shouldBe(Condition.enabled);
-        $(inputPaymentDatePicker).shouldBe(Condition.enabled);
-        $(inputPaymentChannel).shouldBe(Condition.enabled);
+        inputPaymentId.shouldNotBe(Condition.enabled);
+        inputPaymentAmount.shouldBe(Condition.enabled);
+        inputPaymentDatePicker.shouldBe(Condition.enabled);
+        inputPaymentChannel.shouldBe(Condition.enabled);
 
     }
 
     public void enterPaymentAmount() {
-        $(inputPaymentAmount).clear();
-        $(inputPaymentAmount).sendKeys("" + paymentAmount);
+        inputPaymentAmount.clear();
+        inputPaymentAmount.sendKeys("" + paymentAmount);
     }
 
     public void enterPaymentChannel() {
-        $(inputPaymentChannel).clear();
-        $(inputPaymentChannel).sendKeys(paymentChannel);
+        inputPaymentChannel.clear();
+        inputPaymentChannel.sendKeys(paymentChannel);
 
     }
 
@@ -69,12 +72,14 @@ public class HomePage2 {
         $(By.xpath(("//div[@class='mat-button-ripple mat-ripple mat-button-ripple-round']/parent::button"))).click();
         sleep(5000);
         $(By.xpath(("//div[text()='1']"))).click();
-        inputPaymentDatePickerText=$(inputPaymentDatePicker).getText();
+
+        inputPaymentDatePickerText = LocalDate.parse(inputPaymentDatePicker.getValue(),
+                DateTimeFormatter.ofPattern("yyyy-M-d"));
     }
 
     public void clickUpdate() {
 
-        $(buttonUpdate).click();
+        buttonUpdate.click();
         sleep(5000);
     }
 
@@ -82,7 +87,9 @@ public class HomePage2 {
         SelenideElement lastString = $(By.xpath("//tbody/tr[last()]"));
         SelenideElement paymentChannel = lastString.$(By.xpath("./td[text()='" + this.paymentChannel + "']"));
         SelenideElement paymentAmount = lastString.$(By.xpath("./td[text()='" + this.paymentAmount + "']"));
-        SelenideElement paymentDate = lastString.$(By.xpath("./td[text()='" + this.inputPaymentDatePickerText + "']"));
+        String date = inputPaymentDatePickerText
+                .format(DateTimeFormatter.ofPattern("MMM d, yyyy", Locale.US));
+        SelenideElement paymentDate = lastString.$(By.xpath("./td[text()='" + date + "']"));
         assertTrue(paymentChannel.isDisplayed(), "Not visible 1");
         assertTrue(paymentAmount.isDisplayed(), "Not visible 2");
         assertTrue(paymentDate.isDisplayed(), "Not visible 3");
