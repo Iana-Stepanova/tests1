@@ -1,10 +1,9 @@
 package ua.com.univerpulse;
 
-import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import io.cucumber.java8.En;
-import org.openqa.selenium.By;
+import ua.com.univerpulse.pageobject.HomePage1;
+import ua.com.univerpulse.pageobject.HomePage2;
 
 import static com.codeborne.selenide.Selenide.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -24,7 +23,7 @@ public class MyStepdefs1 implements En {
         Given("^Open my browser and navigate to \"([^\"]*)\" with login \"([^\"]*)\" and password \"([^\"]*)\"$", (String page, String login, String password) -> {
             open("http://"+login+":"+password+"@"+page);
             sleep(2000);
-            homePage1 = page(HomePage1.class);
+            homePage1 = SpringSelenide.page(HomePage1.class);
         });
         When("^I find \"([^\"]*)\" arrow on the bottom of the page$", (String arg0) -> {
             homePage1.findArrow();
@@ -65,7 +64,7 @@ public class MyStepdefs1 implements En {
         And("^I click \"([^\"]*)\" new button$", (String arg0) -> {
             homePage1.clickPaymentButton();
             sleep(2000);
-            homePage2 = page(HomePage2.class);
+            homePage2 = SpringSelenide.page(HomePage2.class);
         });
         Then("^I verify that Payment Information is getting populated$", () -> {
             homePage2.verifyPaymentInformationIsPopulated();
@@ -90,6 +89,9 @@ public class MyStepdefs1 implements En {
         And("^I verify that payment was successfully updated$", () -> {
             homePage2.checkLastRow();
 
+        });
+        When("^I select all customers$", () -> {
+            homePage1.smokeTest();
         });
     }
 }

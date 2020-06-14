@@ -1,10 +1,14 @@
-package ua.com.univerpulse;
+package ua.com.univerpulse.pageobject;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import ua.com.univerpulse.services.CustomerService;
 
 import java.util.Random;
 import java.util.UUID;
@@ -17,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * @author Danny Briskin (DBriskin@qaconsultants.com)
  * for ForTests project.
  */
+@Component("HomePage1")
 public class HomePage1 {
     @FindBy(xpath = "//span[text()='Enter new payment ']/parent::button")
     private SelenideElement buttonEnterNewPayment;
@@ -24,10 +29,11 @@ public class HomePage1 {
     private SelenideElement buttonPaginatorLast;
 
     private SelenideElement arrow1;
-    private double paymentAmount = Math.random()*100;
-    private String paymentChannel = UUID.randomUUID().toString().replace("-","").substring(0,10);
+    private double paymentAmount = Math.random() * 100;
+    private String paymentChannel = UUID.randomUUID().toString().replace("-", "").substring(0, 10);
 
-
+    @Autowired
+    private CustomerService customerService;
 
 
     public void findArrow() {
@@ -46,7 +52,7 @@ public class HomePage1 {
 
     public void assertNumberOfRows(String numberOfRows) {
         ElementsCollection counter = $$(By.xpath("//tbody/tr"));
-        assertEquals(Integer.parseInt(numberOfRows), counter.size(), "Not equals");
+        Assertions.assertEquals(Integer.parseInt(numberOfRows), counter.size(), "Not equals");
     }
 
     public void enterNewPaymentClick() {
@@ -73,10 +79,10 @@ public class HomePage1 {
 
     public void checkLastRow() {
         SelenideElement lastString = $(By.xpath("//tbody/tr[last()]"));
-        SelenideElement paymentChannel=lastString.$(By.xpath("./td[text()='"+this.paymentChannel+"']"));
-        SelenideElement paymentAmount=lastString.$(By.xpath("./td[text()='"+this.paymentAmount+"']"));
-        assertTrue(paymentChannel.isDisplayed(),"Not visible 1");
-        assertTrue(paymentAmount.isDisplayed(),"Not visible 2");
+        SelenideElement paymentChannel = lastString.$(By.xpath("./td[text()='" + this.paymentChannel + "']"));
+        SelenideElement paymentAmount = lastString.$(By.xpath("./td[text()='" + this.paymentAmount + "']"));
+        Assertions.assertTrue(paymentChannel.isDisplayed(), "Not visible 1");
+        Assertions.assertTrue(paymentAmount.isDisplayed(), "Not visible 2");
     }
 
     public void enterCreatePaymentClick() {
@@ -86,12 +92,16 @@ public class HomePage1 {
 
     public void checkLastRowNegative() {
         SelenideElement lastString = $(By.xpath("//tbody/tr[last()]"));
-        lastString.$(By.xpath("./td[text()='"+this.paymentChannel+"']")).shouldNotBe(Condition.exist);
-        lastString.$(By.xpath("./td[text()='"+this.paymentAmount+"']")).shouldNotBe(Condition.exist);
-       }
+        lastString.$(By.xpath("./td[text()='" + this.paymentChannel + "']")).shouldNotBe(Condition.exist);
+        lastString.$(By.xpath("./td[text()='" + this.paymentAmount + "']")).shouldNotBe(Condition.exist);
+    }
 
     public void clickPaymentButton() {
-        $(By.xpath("(//span[contains(text(),'Payment Info')])[last()]/parent::a")).waitUntil(Condition.enabled,5000).click();
+        $(By.xpath("(//span[contains(text(),'Payment Info')])[last()]/parent::a")).waitUntil(Condition.enabled, 5000).click();
+    }
+
+    public void smokeTest() {
+customerService.metod1();
     }
 }
 

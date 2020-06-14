@@ -1,10 +1,12 @@
-package ua.com.univerpulse;
+package ua.com.univerpulse.pageobject;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -19,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * @author Danny Briskin (DBriskin@qaconsultants.com)
  * for ForTests project.
  */
+@Component ("HomePage2")
 public class HomePage2 {
     @FindBy(xpath = "//input[@name='paymentId']")
     private SelenideElement inputPaymentId;
@@ -42,7 +45,7 @@ public class HomePage2 {
 
     public void verifyPaymentInformationIsPopulated() {
         sleep(5000);
-        assertTrue(inputPaymentId.isDisplayed() &&
+        Assertions.assertTrue(inputPaymentId.isDisplayed() &&
                 inputPaymentAmount.isDisplayed() &&
                 inputPaymentDatePicker.isDisplayed() &&
                 inputPaymentChannel.isDisplayed(), "Is not visible");
@@ -90,9 +93,9 @@ public class HomePage2 {
         String date = inputPaymentDatePickerText
                 .format(DateTimeFormatter.ofPattern("MMM d, yyyy", Locale.US));
         SelenideElement paymentDate = lastString.$(By.xpath("./td[text()='" + date + "']"));
-        assertTrue(paymentChannel.isDisplayed(), "Not visible 1");
-        assertTrue(paymentAmount.isDisplayed(), "Not visible 2");
-        assertTrue(paymentDate.isDisplayed(), "Not visible 3");
+        Assertions.assertTrue(paymentChannel.isDisplayed(), "Not visible paymentChannel "+ this.paymentChannel );
+        Assertions.assertTrue(paymentAmount.isDisplayed(), "Not visible paymentAmount "+ this.paymentAmount);
+        Assertions.assertTrue(paymentDate.isDisplayed(), "Not visible paymentDate "+ date);
     }
 
 }

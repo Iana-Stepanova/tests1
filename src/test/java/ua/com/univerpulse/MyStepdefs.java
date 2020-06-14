@@ -19,6 +19,7 @@ public class MyStepdefs implements En {
 
     public MyStepdefs() {
         Before(() -> {
+            SpringSelenide.getInstance();
             Configuration.browserBinary = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe";
             Configuration.browser = "chrome"; //chrome/firefox
             System.setProperty("webdriver.chrome.driver", "C:/WORK/chromedriver/chromedriver.exe");
@@ -26,7 +27,7 @@ public class MyStepdefs implements En {
 
 
         When("^I find \"Customer Info\" button of second row payment$", () -> {
-            button = $(By.xpath("(//span[contains(text(),'Customer Info')])[2]/parent::button")).waitUntil(Condition.enabled,5000);
+            button = $(By.xpath("(//span[contains(text(),'Customer Info')])[2]/parent::button")).waitUntil(Condition.enabled, 5000);
         });
         And("^I click on \"([^\"]*)\" button$", (String buttonName) -> {
             if (buttonName.equals("Customer Info")) {
