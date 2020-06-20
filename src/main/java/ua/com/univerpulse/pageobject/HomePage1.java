@@ -9,7 +9,9 @@ import org.openqa.selenium.support.FindBy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ua.com.univerpulse.services.CustomerService;
+import ua.com.univerpulse.services.PaymentService;
 
+import java.time.LocalDateTime;
 import java.util.Random;
 import java.util.UUID;
 
@@ -34,6 +36,8 @@ public class HomePage1 {
 
     @Autowired
     private CustomerService customerService;
+    @Autowired
+    private PaymentService paymentService;
 
 
     public void findArrow() {
@@ -101,7 +105,13 @@ public class HomePage1 {
     }
 
     public void smokeTest() {
-customerService.metod1();
+//customerService.metod1();
+    }
+
+    public void verifyRecords() {
+        Boolean res = paymentService.findPaymentParam(1,this.paymentAmount, this.paymentChannel);
+ assertTrue(res, "Not true");
+
     }
 }
 

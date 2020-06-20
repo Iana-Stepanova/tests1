@@ -36,7 +36,7 @@ public class Payment {
 
     @Override
     public String toString() {
-        return "Payment{" +
+        return "\n Payment{" +
                 "identification=" + identification +
                 ", paymentDate=" + paymentDate +
                 ", paymentAmount=" + paymentAmount +

@@ -93,5 +93,8 @@ public class MyStepdefs1 implements En {
         When("^I select all customers$", () -> {
             homePage1.smokeTest();
         });
+        Then("^Verify that record with given values was inserted in payments table$", () -> {
+            homePage1.verifyRecords();
+        });
     }
 }

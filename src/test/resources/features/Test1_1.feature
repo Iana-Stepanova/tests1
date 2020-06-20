@@ -24,6 +24,7 @@ Feature: Web-scenario1
     Then I click "Create payment" other button
     And I navigate to the last page of payments table
     And I verify that the payment is shown in the table(in the last row)
+    Then Verify that record with given values was inserted in payments table
 
   @Test4
   Scenario: Preparing to edit the last payment
@@ -42,3 +43,4 @@ Feature: Web-scenario1
     Then I click “Update” button
     And I navigate to the last page of payments table
     And I verify that payment was successfully updated
+

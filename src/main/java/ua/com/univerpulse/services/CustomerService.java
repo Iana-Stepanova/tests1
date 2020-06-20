@@ -6,6 +6,10 @@ import org.springframework.stereotype.Service;
 import ua.com.univerpulse.entities.Customer;
 import ua.com.univerpulse.repository.CustomerRepository;
 
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
 /**
  * @author Danny Briskin (DBriskin@qaconsultants.com)
  * for ForTests project.
@@ -17,17 +21,25 @@ public class CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
 
-    public void metod1() {
-
-      log. warn(customerRepository.findAll());
-
-    }
+//    public void metod1() {
+//
+//      log. warn(customerRepository.findAll());
+//
+//    }
     //   <other repositories needed>
 
-//        public ResultType methodOne(String param) {
-//            ResultType res = entityClassNameRepository.selectSomething(param);
-//            assertSomething(res);
-//            applySomeLogic(res);
-//            return res;
+        public List<Customer> findAllCustomer() {
+            List<Customer> res = customerRepository.findAll() ;
+            assertFalse(res.isEmpty(), "Is empty");
+            return res;
+        }
+
+//    public ResultType methodOne(String param) {
+//        ResultType res = entityClassNameRepository.selectSomething(param);
+//        assertSomething(res);
+//        applySomeLogic(res);
+//        return res;
 //        }}
+
+
 }

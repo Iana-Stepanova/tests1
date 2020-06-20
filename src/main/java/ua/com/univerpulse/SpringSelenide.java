@@ -32,7 +32,18 @@ public class SpringSelenide extends Selenide {
             return page(getInstance()
                     .context.getBean(pageObjectClass.getSimpleName(), pageObjectClass));
         } catch (Exception e) {
-             log.error("Failed to create new instance of {}", pageObjectClass);
+            log.error("Failed to create new instance of {}", pageObjectClass);
+            log.catching(e);
+            return null;
+        }
+    }
+
+    public static <P> P createBean(Class<P> pageObjectClass) {
+        try {
+            return getInstance()
+                    .context.getBean(pageObjectClass);
+        } catch (Exception e) {
+            log.error("Failed to create new instance of {}", pageObjectClass);
             log.catching(e);
             return null;
         }

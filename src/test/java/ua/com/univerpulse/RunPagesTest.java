@@ -18,7 +18,7 @@ import org.junit.runner.RunWith;
 }
         , features = {"src/test/resources/features"}
         , glue = {"ua/com/univerpulse"}
-        , tags = {"@Test6"}
+        , tags = {"@Test2"}
 )
 @RunWith(Cucumber.class)
 public class RunPagesTest   {}
