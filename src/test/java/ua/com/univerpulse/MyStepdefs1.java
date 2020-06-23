@@ -96,5 +96,8 @@ public class MyStepdefs1 implements En {
         Then("^Verify that record with given values was inserted in payments table$", () -> {
             homePage1.verifyRecords();
         });
+        And("^Verify that record with given values was NOT inserted in payments table$", () -> {
+            homePage1.valuesWasNotInsertedInPaymentsTable();
+        });
     }
 }

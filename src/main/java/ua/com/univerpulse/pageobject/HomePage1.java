@@ -16,8 +16,7 @@ import java.util.Random;
 import java.util.UUID;
 
 import static com.codeborne.selenide.Selenide.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Danny Briskin (DBriskin@qaconsultants.com)
@@ -112,6 +111,11 @@ public class HomePage1 {
         Boolean res = paymentService.findPaymentParam(1,this.paymentAmount, this.paymentChannel);
  assertTrue(res, "Not true");
 
+    }
+
+    public void valuesWasNotInsertedInPaymentsTable() {
+        Boolean res = paymentService.findPaymentParam(1,this.paymentAmount, this.paymentChannel);
+        assertFalse(res, "True");
     }
 }
 

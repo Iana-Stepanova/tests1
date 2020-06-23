@@ -13,3 +13,4 @@ Feature: Web-scenario1
     Then I click "Create payment" other button
     And I navigate to the last page of payments table
     And I verify that the payment is not shown in the table
+    And Verify that record with given values was NOT inserted in payments table
