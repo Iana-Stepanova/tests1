@@ -19,7 +19,7 @@
         <cucumber.reporting.plugin>5.0.0</cucumber.reporting.plugin>
         <spring.version>5.1.9.RELEASE</spring.version>
         <spring-data>2.1.10.RELEASE</spring-data>
-        <log4j>2.12.0</log4j>
+        <log4j>2.13.3</log4j>
     </properties>
 
     <dependencies>
